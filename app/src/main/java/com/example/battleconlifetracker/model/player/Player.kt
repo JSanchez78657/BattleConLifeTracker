@@ -2,7 +2,7 @@ package com.example.battleconlifetracker.model.player
 
 import java.io.Serializable
 
-abstract class Player(protected var currentLife: Int = -1, protected var currentForce: Int = -1 , protected var maxForce: Int = -1) : Serializable {
+abstract class Player(var currentLife: Int = -1, var currentForce: Int = -1 , var maxForce: Int = -1) : Serializable {
 
     protected val overloadsAvailable: HashMap<String, Int> = hashMapOf("POWER" to 0, "GUARD" to 0, "PRIORITY" to 0)
     protected var finisherUsed = false

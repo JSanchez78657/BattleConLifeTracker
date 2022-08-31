@@ -1,6 +1,6 @@
 package com.example.battleconlifetracker.model.player
 
-class NormalPlayer() : Player() {
+class NormalPlayer : Player() {
 
     init {
         currentLife = 20

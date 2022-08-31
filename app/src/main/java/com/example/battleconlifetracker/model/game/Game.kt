@@ -1,13 +1,14 @@
 package com.example.battleconlifetracker.model.game
 
 import com.example.battleconlifetracker.model.GameSettings
+import com.example.battleconlifetracker.model.player.NormalPlayer
 import com.example.battleconlifetracker.model.player.Player
 import java.io.Serializable
 
 class Game(private val settings: GameSettings) : Serializable {
 
     private var forceGained: Int = settings.getStartingForce() * settings.getNumPlayers()
-    private val players: Array<Player> = Array(settings.getNumPlayers()) { Player(settings.getStartingLife(), settings.getStartingForce()) }
+    private val players: Array<Player> = Array(settings.getNumPlayers()) { NormalPlayer() }
 
     fun endBeat(): Boolean {
         players.forEach { p -> forceGained += p.endOfBeatForce(); p.resetOverloads() }
