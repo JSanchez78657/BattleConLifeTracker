@@ -1,0 +1,15 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<resources>-->
+<!--    <style name="SpinnerStyle"-->
+<!--            parent="@android:style/Widget.TextView.SpinnerItem">-->
+<!--        <item name="android:textSize">@dimen/big_font</item>-->
+<!--    </style>-->
+<!--</resources>-->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:textSize="@dimen/small_font"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        tools:context=".layouts.SpinnerLayout" />

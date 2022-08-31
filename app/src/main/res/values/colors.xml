@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="life_point_red">#A20000</color>
+    <color name="finisher_red">#FFE30000</color>
+    <color name="force_point_green">#26C800</color>
+    <color name="ante_overload_green">#3ED51B</color>
+    <color name="end_beat_blue">#007E95</color>
+    <color name="text_black">#000000</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="disabled">#CC5C5C5C</color>
+</resources>

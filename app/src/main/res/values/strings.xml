@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">BattleConLifeTracker</string>
+    <string name="end_beat">End Beat</string>
+    <string name="ante_power">Ante Power</string>
+    <string name="ante_guard">Ante Stun Guard</string>
+    <string name="ante_prio">Ante Priority</string>
+    <string name="finisher">Finisher</string>
+    <string name="lose_force">Lose force</string>
+    <string name="gain_force">Gain force</string>
+    <string name="gain_life">Gain life</string>
+    <string name="back">Back</string>
+    <string name="reset_game">Reset Game</string>
+    <string name="match_settings">Match Settings</string>
+    <string name="open_menu">Open menu</string>
+    <string name="player_count">Players</string>
+    <string name="presets">Presets</string>
+    <string name="teams">Teams</string>
+    <string name="boss_mode">Boss Mode</string>
+    <string name="starting_health">Starting Health</string>
+    <string name="universal_values">Universal Values</string>
+    <string name="starting_force">Starting Force</string>
+    <string name="force_pool">Force Pool</string>
+    <string-array name="num_players">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="presets">
+        <item>1v1</item>
+        <item>2v2</item>
+        <item>1v2</item>
+        <item>1v3</item>
+        <item>Boss</item>
+    </string-array>
+</resources>
