@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val intent = Intent(this, GameScreen::class.java)
         val extras = Bundle()
-        extras.putSerializable("Game", Game(GameSettings(20, 2, 45, 2)))
+        extras.putSerializable("GameSettings", GameSettings(20, 2, 45, 2))
         intent.putExtras(extras)
         startActivity(intent)
         finish()

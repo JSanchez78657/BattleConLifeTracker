@@ -1,11 +1,13 @@
 package com.example.battleconlifetracker.model.game
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.example.battleconlifetracker.model.GameSettings
 import com.example.battleconlifetracker.model.player.NormalPlayer
 import com.example.battleconlifetracker.model.player.Player
 import java.io.Serializable
 
-class Game(private val settings: GameSettings) : Serializable {
+class Game(private val settings: GameSettings) {
 
     private var forceGained: Int = settings.getStartingForce() * settings.getNumPlayers()
     private val players: Array<Player> = Array(settings.getNumPlayers()) { NormalPlayer() }
@@ -15,8 +17,8 @@ class Game(private val settings: GameSettings) : Serializable {
         return forceGained >= settings.getMaxForce()
     }
 
-    fun changeHealth(id: Int, life: Int): Int {
-        return players[id].changeHealth(life)
+    fun changeHealth(id: Int, health: Int): Int {
+        return players[id].changeHealth(health)
     }
 
     fun changeForce(id: Int, force: Int): Int {

@@ -3,10 +3,9 @@ package com.example.battleconlifetracker.model.player
 class UltraPlayer : Player() {
 
     init {
-        currentLife = 40
+        currentHealth = 40
         currentForce = 8
         maxForce = 20
-        changeHealth(0)
     }
 
     override fun overloadAvailable(name: String): Boolean {
@@ -17,17 +16,15 @@ class UltraPlayer : Player() {
             false
     }
 
-    override fun changeHealth(life: Int): Int {
+    override fun updateForcePerBeat(newHealth: Int) {
         //10 or less life
-        if(currentLife + life <= 10)
+        if(newHealth <= 10)
             forcePerBeat = 6
         //11 to 20 life
-        if(currentLife + life in 11..20)
+        if(newHealth in 11..20)
             forcePerBeat = 5
         //21 or more life
-        if(currentLife + life >= 21)
+        if(newHealth >= 21)
             forcePerBeat = 4
-        currentLife += life
-        return currentLife
     }
 }

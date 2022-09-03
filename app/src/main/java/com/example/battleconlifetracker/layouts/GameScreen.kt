@@ -17,7 +17,7 @@ class GameScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(intent?.extras?.getSerializable("Game") != null)
-            game = intent.extras!!.getSerializable("Game") as Game
+            game = Game(intent.extras!!.getSerializable("Game") as GameSettings)
         setContentView(R.layout.activity_main)
         val p1Life = findViewById<TextView>(R.id.P1LifeTotal)
         val p1Force = findViewById<TextView>(R.id.P1ForceTotal)
@@ -26,10 +26,10 @@ class GameScreen : AppCompatActivity() {
         val p1RemainingForce = findViewById<TextView>(R.id.P1RemainingForce)
         val p2RemainingForce = findViewById<TextView>(R.id.P2RemainingForce)
 
-        p1Life.text = game.getPlayer(0)?.currentLife.toString()
+        p1Life.text = game.getPlayer(0)?.currentHealth.toString()
         p1Force.text = game.getPlayer(0)?.currentForce.toString()
         p1RemainingForce.text = game.getRemainingForce().toString()
-        p2Life.text = game.getPlayer(1)?.currentLife.toString()
+        p2Life.text = game.getPlayer(1)?.currentHealth.toString()
         p2Force.text = game.getPlayer(1)?.currentForce.toString()
         p2RemainingForce.text = game.getRemainingForce().toString()
 
@@ -138,7 +138,7 @@ class GameScreen : AppCompatActivity() {
         //Menu button
         findViewById<ImageButton>(R.id.MenuButton).setOnClickListener {
             val intent = Intent(this, SettingsMenu::class.java)
-            intent.putExtra("Game", game)
+//            intent.putExtra("Game", game)
             startActivity(intent)
             finish()
         }
