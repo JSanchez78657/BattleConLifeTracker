@@ -5,25 +5,47 @@ import kotlin.properties.Delegates
 abstract class Player {
 
     var currentHealth: Int by Delegates.observable(-1) { _, _, newValue -> healthChanged(newValue) }
+    var maxHealth: Int = -1
     var currentForce: Int = -1
     var maxForce: Int = -1
-    protected val overloadsAvailable: HashMap<String, Int> = hashMapOf("POWER" to 0, "GUARD" to 0, "PRIORITY" to 0)
-    protected var finisherUsed = false
-    protected var finisherAvailable = true
     var forcePerBeat = -1
         protected set
+    protected var overloadsAvailable: HashMap<String, Int> = hashMapOf("POWER" to 0, "GUARD" to 0, "PRIORITY" to 0)
+    protected var finisherUsed = false
+    protected var finisherAvailable = true
 
-    private fun healthChanged(newHealth: Int) {
-        updateForcePerBeat(newHealth)
-        if(!finisherUsed) updateFinisherAvailable(newHealth)
+
+    constructor(serializable: PlayerSerializable) {
+        this.currentHealth = serializable.currentHealth
+        this.maxHealth = serializable.maxHealth
+        this.currentForce = serializable.currentForce
+        this.maxHealth = serializable.maxForce
+        this.forcePerBeat = serializable.forcePerBeat
+        this.overloadsAvailable = serializable.overloadsAvailable
+        this.finisherUsed = serializable.finisherUsed
+        this.finisherAvailable = serializable.finisherAvailable
     }
 
     abstract fun updateForcePerBeat(newHealth: Int)
 
     abstract fun overloadAvailable(name: String): Boolean
 
+    private fun healthChanged(newHealth: Int) {
+        val health = if(newHealth > maxHealth) maxHealth else newHealth
+        updateForcePerBeat(health)
+        if(!finisherUsed) updateFinisherAvailable(health)
+    }
+
     private fun updateFinisherAvailable(newHealth: Int) {
         finisherAvailable = !finisherUsed && newHealth <= currentForce
+    }
+
+    private fun finisherAvailable(): Boolean {
+        return !finisherUsed && currentForce >= currentHealth
+    }
+
+    fun getSerializable(): PlayerSerializable {
+        return PlayerSerializable(this.maxHealth, this.currentHealth, this.currentForce, this.maxForce, this.forcePerBeat, this.overloadsAvailable, this.finisherUsed, this.finisherAvailable)
     }
 
     fun useOverload(name: String): Int {
@@ -66,9 +88,5 @@ abstract class Player {
         currentForce += forcePerBeat
         if (currentForce > maxForce) currentForce = maxForce
         return forcePerBeat
-    }
-
-    private fun finisherAvailable(): Boolean {
-        return !finisherUsed && currentForce >= currentHealth
     }
 }

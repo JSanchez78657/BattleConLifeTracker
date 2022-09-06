@@ -1,20 +1,18 @@
 package com.example.battleconlifetracker.model.game
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.example.battleconlifetracker.model.GameSettings
 import com.example.battleconlifetracker.model.player.NormalPlayer
 import com.example.battleconlifetracker.model.player.Player
-import java.io.Serializable
 
-class Game(private val settings: GameSettings) {
+class Game {
 
-    private var forceGained: Int = settings.getStartingForce() * settings.getNumPlayers()
-    private val players: Array<Player> = Array(settings.getNumPlayers()) { NormalPlayer() }
+    private var forceGained: Int = 0
+    private var maxForce: Int = 0
+    private val players: Array<Player> = arrayOf()
 
     fun endBeat(): Boolean {
         players.forEach { p -> forceGained += p.endOfBeatForce(); p.resetOverloads() }
-        return forceGained >= settings.getMaxForce()
+        return forceGained >= maxForce
     }
 
     fun changeHealth(id: Int, health: Int): Int {
@@ -44,7 +42,7 @@ class Game(private val settings: GameSettings) {
     }
 
     fun getPlayerCount(): Int {
-        return settings.getNumPlayers()
+        return players.size
     }
 
     fun overloadAvailable(id: Int, name: String): Boolean {
@@ -60,11 +58,7 @@ class Game(private val settings: GameSettings) {
             player.resetOverloads()
     }
 
-    fun getSettings() : GameSettings {
-        return settings
-    }
-
     fun getRemainingForce(): Int {
-        return if (forceGained > settings.getMaxForce()) 0 else settings.getMaxForce() - forceGained
+        return if (forceGained > maxForce) 0 else maxForce - forceGained
     }
 }
