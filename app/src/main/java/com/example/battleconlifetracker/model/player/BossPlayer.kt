@@ -5,7 +5,6 @@ class BossPlayer(numPlayers: Int) : Player() {
     init {
         currentHealth = 25 * numPlayers
         currentForce = 2
-        maxForce = 20
         //Jank solution to make sure bosses can't use/be shown finishers
         finisherUsed = true
     }

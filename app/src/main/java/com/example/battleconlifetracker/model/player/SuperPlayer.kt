@@ -5,7 +5,6 @@ class SuperPlayer : Player() {
     init {
         currentHealth = 30
         currentForce = 5
-        maxForce = 20
     }
 
     override fun overloadAvailable(name: String): Boolean {

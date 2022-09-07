@@ -2,33 +2,45 @@ package com.example.battleconlifetracker.model.player
 
 import kotlin.properties.Delegates
 
-abstract class Player {
+open class Player() {
 
-    var currentHealth: Int by Delegates.observable(-1) { _, _, newValue -> healthChanged(newValue) }
-    var maxHealth: Int = -1
-    var currentForce: Int = -1
-    var maxForce: Int = -1
-    var forcePerBeat = -1
+    var currentHealth: Int by Delegates.observable(20) { _, _, newValue -> healthChanged(newValue) }
+    var maxHealth: Int = 20
+    var currentForce: Int = 2
+    var maxForce: Int = 10
+    var forcePerBeat = 1
         protected set
     protected var overloadsAvailable: HashMap<String, Int> = hashMapOf("POWER" to 0, "GUARD" to 0, "PRIORITY" to 0)
     protected var finisherUsed = false
     protected var finisherAvailable = true
 
 
-    constructor(serializable: PlayerSerializable) {
+    constructor(serializable: PlayerSerializable) : this() {
         this.currentHealth = serializable.currentHealth
         this.maxHealth = serializable.maxHealth
         this.currentForce = serializable.currentForce
-        this.maxHealth = serializable.maxForce
         this.forcePerBeat = serializable.forcePerBeat
         this.overloadsAvailable = serializable.overloadsAvailable
         this.finisherUsed = serializable.finisherUsed
         this.finisherAvailable = serializable.finisherAvailable
     }
 
-    abstract fun updateForcePerBeat(newHealth: Int)
+    open fun updateForcePerBeat(newHealth: Int) {
+        //7 or less life
+        if(newHealth <= 7)
+            forcePerBeat = 2
+        //8 or more life
+        if(newHealth > 7)
+            forcePerBeat = 1
+    }
 
-    abstract fun overloadAvailable(name: String): Boolean
+    open fun overloadAvailable(name: String): Boolean {
+        if(currentForce < 2) return false
+        return if(overloadsAvailable.containsKey(name) && overloadsAvailable[name] != null)
+            overloadsAvailable[name]!! < 1
+        else
+            false
+    }
 
     private fun healthChanged(newHealth: Int) {
         val health = if(newHealth > maxHealth) maxHealth else newHealth
@@ -45,7 +57,7 @@ abstract class Player {
     }
 
     fun getSerializable(): PlayerSerializable {
-        return PlayerSerializable(this.maxHealth, this.currentHealth, this.currentForce, this.maxForce, this.forcePerBeat, this.overloadsAvailable, this.finisherUsed, this.finisherAvailable)
+        return PlayerSerializable(this.maxHealth, this.currentHealth, this.currentForce, this.forcePerBeat, this.overloadsAvailable, this.finisherUsed, this.finisherAvailable)
     }
 
     fun useOverload(name: String): Int {

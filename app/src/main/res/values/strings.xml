@@ -20,6 +20,9 @@
     <string name="universal_values">Universal Values</string>
     <string name="starting_force">Starting Force</string>
     <string name="force_pool">Force Pool</string>
+    <string name="ultra_mode">Ultra Mode</string>
+    <string name="super_mode">Super Mode</string>
+    <string name="team_mode">Team Mode</string>
     <string-array name="num_players">
         <item>1</item>
         <item>2</item>

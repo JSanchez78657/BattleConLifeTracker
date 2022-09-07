@@ -1,18 +1,42 @@
 package com.example.battleconlifetracker.model.game
 
-import com.example.battleconlifetracker.model.GameSettings
-import com.example.battleconlifetracker.model.player.NormalPlayer
 import com.example.battleconlifetracker.model.player.Player
+import com.example.battleconlifetracker.model.player.PlayerSerializable
 
-class Game {
+class Game() {
 
     private var forceGained: Int = 0
-    private var maxForce: Int = 0
-    private val players: Array<Player> = arrayOf()
+    private var forcePool: Int = 45
+    private var players: Array<Player> = arrayOf(Player(), Player())
+
+    init {
+        players.forEach { player -> forceGained += player.currentForce }
+    }
+
+    constructor(serializable: GameSerializable) : this() {
+        this.forceGained = serializable.forceGained
+        this.players = convertSerializable(serializable.players)
+    }
+
+    private fun convertPlayersToSerializable(): Array<PlayerSerializable> {
+        var arr: Array<PlayerSerializable> = arrayOf()
+        players.forEach { player -> arr += player.getSerializable() }
+        return arr
+    }
+
+    private fun convertSerializable(serializable: Array<PlayerSerializable>): Array<Player> {
+        var arr: Array<Player> = arrayOf()
+        serializable.forEach { player -> arr += Player(player) }
+        return arr
+    }
+
+    fun getSerializable(): GameSerializable {
+        return GameSerializable(forceGained, convertPlayersToSerializable())
+    }
 
     fun endBeat(): Boolean {
         players.forEach { p -> forceGained += p.endOfBeatForce(); p.resetOverloads() }
-        return forceGained >= maxForce
+        return forceGained >= forcePool
     }
 
     fun changeHealth(id: Int, health: Int): Int {
@@ -59,6 +83,6 @@ class Game {
     }
 
     fun getRemainingForce(): Int {
-        return if (forceGained > maxForce) 0 else maxForce - forceGained
+        return if (forceGained > forcePool) 0 else forcePool - forceGained
     }
 }

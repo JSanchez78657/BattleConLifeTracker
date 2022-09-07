@@ -5,7 +5,6 @@ class UltraPlayer : Player() {
     init {
         currentHealth = 40
         currentForce = 8
-        maxForce = 20
     }
 
     override fun overloadAvailable(name: String): Boolean {

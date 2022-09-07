@@ -8,16 +8,16 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.battleconlifetracker.model.game.Game
 import com.example.battleconlifetracker.R
-import com.example.battleconlifetracker.model.GameSettings
+import com.example.battleconlifetracker.model.game.GameSerializable
 
 class GameScreen : AppCompatActivity() {
 
-    private var game = Game(GameSettings(20, 2, 45, 2))
+    private var game = Game()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(intent?.extras?.getSerializable("Game") != null)
-            game = Game(intent.extras!!.getSerializable("Game") as GameSettings)
+            game = Game(intent.extras!!.getSerializable("Game") as GameSerializable)
         setContentView(R.layout.activity_main)
         val p1Life = findViewById<TextView>(R.id.P1LifeTotal)
         val p1Force = findViewById<TextView>(R.id.P1ForceTotal)
@@ -138,7 +138,7 @@ class GameScreen : AppCompatActivity() {
         //Menu button
         findViewById<ImageButton>(R.id.MenuButton).setOnClickListener {
             val intent = Intent(this, SettingsMenu::class.java)
-//            intent.putExtra("Game", game)
+            intent.putExtra("Game", game.getSerializable())
             startActivity(intent)
             finish()
         }

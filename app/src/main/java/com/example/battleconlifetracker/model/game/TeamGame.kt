@@ -1,12 +1,12 @@
 package com.example.battleconlifetracker.model.game
 
 import com.example.battleconlifetracker.model.Team
-import com.example.battleconlifetracker.model.player.NormalPlayer
+import com.example.battleconlifetracker.model.player.Player
 
-class TeamGame {
+open class TeamGame {
 
-    val teamArray = arrayOf(Team(NormalPlayer(), NormalPlayer()), Team(NormalPlayer(), NormalPlayer()))
-    val forcePool = 45 + 20 * teamArray.size * teamArray.first().playerArray.size
+    val teamArray = arrayOf(Team(Player(), Player()), Team(Player(), Player()))
+    val forcePool by lazy { calcForcePool() }
     var forceGained = 0
 
     init {
@@ -15,6 +15,12 @@ class TeamGame {
                 player -> forceGained += player.currentForce
             }
         }
+    }
+
+    private fun calcForcePool(): Int {
+        var numPlayers = 0
+        teamArray.forEach { team -> numPlayers += team.playerArray.size }
+        return 5 + 25 * numPlayers
     }
 
     fun endBeat() {

@@ -7,3 +7,7 @@ Reset icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/r
 Gear icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/gear
 User icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/user
 Heart icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/heart
+Collaboration icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/collaboration
+Monster icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/monster
+Muscle icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/muscle
+Freedom icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/freedom

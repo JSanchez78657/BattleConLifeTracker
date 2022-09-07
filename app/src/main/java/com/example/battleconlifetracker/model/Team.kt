@@ -10,6 +10,13 @@ class Team (vararg val playerArray: Player) {
 
     init {
         playerArray.forEach { player -> forcePerBeat += player.forcePerBeat }
+        updateForcePerBeat()
+    }
+
+    fun updateForcePerBeat() {
+        var playerForce = 0
+        playerArray.forEach { player -> playerForce += player.forcePerBeat }
+        forcePerBeat = playerForce
     }
 
     fun endOfBeatForce(): Int {

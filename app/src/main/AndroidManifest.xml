@@ -24,8 +24,8 @@
         </activity>
         <activity android:name=".layouts.SettingsMenu" android:exported="true"/>
         <activity android:name=".layouts.GameScreen" android:exported="true"/>
-        <activity android:name=".layouts.GameConfigMenu" android:exported="true"/>
         <activity android:name=".layouts.SpinnerLayout" android:exported="true"/>
+        <activity android:name=".layouts.DynamicGameScreen" android:exported="true"/>
     </application>
 
 </manifest>
