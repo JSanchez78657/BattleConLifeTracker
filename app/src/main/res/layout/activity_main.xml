@@ -59,7 +59,7 @@
             app:layout_constraintBottom_toTopOf="@id/TopOfBeatZone"
             app:layout_constraintStart_toEndOf="@id/P2VerticalMiddleLine"
             app:layout_constraintEnd_toEndOf="parent"/>
-    <!-- P2 Force zone -->
+    <!-- P2 Life zone -->
     <TextView
             android:id="@+id/P2LifeTotal"
             android:rotation="180"

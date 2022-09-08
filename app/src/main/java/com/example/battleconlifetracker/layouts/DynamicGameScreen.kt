@@ -15,36 +15,32 @@ class DynamicGameScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.team_game)
-        var constraintLayout = findViewById<ConstraintLayout>(R.id.TeamConstraint)
-        var constraintSet = ConstraintSet()
-        var topButton = ImageButton(constraintLayout.context)
-        var bottomButton = ImageButton(constraintLayout.context)
+        var constraintLayout = findViewById<ConstraintLayout>(R.id.GameConstraint)
 
-        topButton.id = View.generateViewId()
-        topButton.scaleType = ImageView.ScaleType.FIT_CENTER
-        topButton.layoutParams = ViewGroup.LayoutParams(0,0)
-        topButton.setImageResource(R.drawable.freedom)
+        var health = layoutInflater.inflate(R.layout.health_block, constraintLayout, false)
+        var force = layoutInflater.inflate(R.layout.force_block, constraintLayout, false)
 
-        bottomButton.id = View.generateViewId()
-        bottomButton.scaleType = ImageView.ScaleType.FIT_CENTER
-        bottomButton.layoutParams = ViewGroup.LayoutParams(0,0)
-        bottomButton.setImageResource(R.drawable.dragon)
+        var constraints = ConstraintSet()
 
-        constraintLayout.addView(topButton)
-        constraintLayout.addView(bottomButton)
+        health.id = View.generateViewId()
+        force.id = View.generateViewId()
 
-        constraintSet.clone(constraintLayout)
-        constraintSet.connect(topButton.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-        constraintSet.connect(topButton.id, ConstraintSet.BOTTOM, bottomButton.id, ConstraintSet.TOP)
-        constraintSet.connect(topButton.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-        constraintSet.connect(topButton.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+        constraintLayout.addView(health)
+        constraintLayout.addView(force)
 
-        constraintSet.connect(bottomButton.id, ConstraintSet.TOP, topButton.id, ConstraintSet.BOTTOM)
-        constraintSet.connect(bottomButton.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-        constraintSet.connect(bottomButton.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-        constraintSet.connect(bottomButton.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-        constraintSet.applyTo(constraintLayout)
+        constraints.clone(constraintLayout)
 
+        constraints.connect(health.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+        constraints.connect(health.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+        constraints.connect(health.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+        constraints.connect(health.id, ConstraintSet.END, force.id, ConstraintSet.START)
+
+        constraints.connect(force.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+        constraints.connect(force.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+        constraints.connect(force.id, ConstraintSet.START, health.id, ConstraintSet.END)
+        constraints.connect(force.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+
+        constraints.applyTo(constraintLayout)
         setContentView(constraintLayout)
     }
 }
