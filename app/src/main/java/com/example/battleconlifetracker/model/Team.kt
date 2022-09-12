@@ -20,7 +20,7 @@ class Team (vararg players: Player) {
 
     constructor(playerCount: Int) : this() {
         for(i in 0 until playerCount) {
-            playerArray[i] = Player()
+            playerArray  += Player()
             forcePerBeat += playerArray[i].forcePerBeat
         }
         updateForcePerBeat()
