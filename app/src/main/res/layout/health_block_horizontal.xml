@@ -12,6 +12,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".105"/>
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/AnteLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".895"/>
     <ImageButton
             android:id="@+id/FinisherButton"
             android:background="@color/finisher_red"
@@ -56,5 +62,44 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/GainLife"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageButton
+            android:id="@+id/PowerAnteButton"
+            android:contentDescription="@string/ante_power"
+            android:background="@color/ante_overload_green"
+            android:src="@drawable/sword_ccw"
+            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/GuardAnteButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/AnteLine"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageButton
+            android:id="@+id/GuardAnteButton"
+            android:contentDescription="@string/ante_guard"
+            android:background="@color/ante_overload_green"
+            android:src="@drawable/shield_ccw"
+            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/PrioAnteButton"
+            app:layout_constraintBottom_toTopOf="@id/PowerAnteButton"
+            app:layout_constraintStart_toEndOf="@id/AnteLine"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageButton
+            android:id="@+id/PrioAnteButton"
+            android:contentDescription="@string/ante_prio"
+            android:background="@color/ante_overload_green"
+            android:src="@drawable/lightning_ccw"
+            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="2dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/GuardAnteButton"
+            app:layout_constraintStart_toEndOf="@id/AnteLine"
             app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

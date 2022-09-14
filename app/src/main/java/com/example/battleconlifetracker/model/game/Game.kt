@@ -3,7 +3,7 @@ package com.example.battleconlifetracker.model.game
 import com.example.battleconlifetracker.model.player.Player
 import com.example.battleconlifetracker.model.player.PlayerSerializable
 
-class Game() {
+open class Game() {
 
     private var forceGained: Int = 0
     private var forcePool: Int = 45
@@ -30,13 +30,21 @@ class Game() {
         return arr
     }
 
-    fun getSerializable(): GameSerializable {
-        return GameSerializable(forceGained, convertPlayersToSerializable())
-    }
-
-    fun endBeat(): Boolean {
+    open fun endBeat(): Boolean {
         players.forEach { p -> forceGained += p.endOfBeatForce(); p.resetOverloads() }
         return forceGained >= forcePool
+    }
+
+    open fun checkAvailableActions(): List<List<String>> {
+        val playerActions: MutableList<List<String>> = mutableListOf()
+        for(player in players) {
+            playerActions.add(player.getAvailableActions())
+        }
+        return playerActions.toList()
+    }
+
+    fun getSerializable(): GameSerializable {
+        return GameSerializable(forceGained, convertPlayersToSerializable())
     }
 
     fun changeHealth(id: Int, health: Int): Int {
@@ -49,14 +57,6 @@ class Game() {
 
     fun useFinisher(id: Int): Int {
         return players[id].useFinisher()
-    }
-
-    fun checkAvailableActions(): List<List<String>> {
-        val playerActions: MutableList<List<String>> = mutableListOf()
-        for(player in players) {
-            playerActions.add(player.getAvailableActions())
-        }
-        return playerActions.toList()
     }
 
     fun getPlayer(id: Int): Player? {

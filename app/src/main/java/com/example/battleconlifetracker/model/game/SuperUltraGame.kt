@@ -1,4 +1,4 @@
 package com.example.battleconlifetracker.model.game
 
-class SuperUltraGame : TeamGame() {
+class SuperUltraGame : TeamGame(1, 3) {
 }

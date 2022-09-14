@@ -5,15 +5,16 @@ import com.example.battleconlifetracker.model.player.Player
 
 class Team (vararg players: Player) {
 
-    private val maxForce = 20
-    private var currentForce = 0
+    private val maxForce = if(players.size > 1) 20 else 10
     private var forcePerBeat = 0
+    var currentForce = 0
     var playerArray: Array<Player> = arrayOf()
 
     init {
         for(i in players.indices) {
-            playerArray[i] = players[i]
+            playerArray += players[i]
             forcePerBeat += players[i].forcePerBeat
+            currentForce += players[i].currentForce
         }
         updateForcePerBeat()
     }
@@ -22,14 +23,20 @@ class Team (vararg players: Player) {
         for(i in 0 until playerCount) {
             playerArray  += Player()
             forcePerBeat += playerArray[i].forcePerBeat
+            currentForce += playerArray[i].currentForce
         }
         updateForcePerBeat()
     }
 
-    fun updateForcePerBeat() {
+    private fun updateForcePerBeat() {
         var playerForce = 0
         playerArray.forEach { player -> playerForce += player.forcePerBeat }
         forcePerBeat = playerForce
+    }
+
+    fun changeForce(force: Int): Int {
+        currentForce += force
+        return currentForce
     }
 
     fun endOfBeatForce(): Int {
