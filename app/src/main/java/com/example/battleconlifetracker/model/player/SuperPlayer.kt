@@ -4,11 +4,11 @@ class SuperPlayer : Player() {
 
     init {
         currentHealth = 30
-        currentForce = 5
+        startingForce = 5
     }
 
     override fun overloadAvailable(name: String): Boolean {
-        if(currentForce < 2) return false
+//        if(currentForce < 2) return false
         return if(overloadsAvailable.containsKey(name) && overloadsAvailable[name] != null)
             overloadsAvailable[name]!! < 2
         else

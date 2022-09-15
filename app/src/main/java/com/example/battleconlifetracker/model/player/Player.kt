@@ -4,9 +4,15 @@ import kotlin.properties.Delegates
 
 open class Player() {
 
-    var currentHealth: Int by Delegates.observable(20) { _, _, newValue -> healthChanged(newValue) }
+    var currentHealth: Int = 20
+        set(newHealth) {
+            val health = if(newHealth > maxHealth) maxHealth else newHealth
+            updateForcePerBeat(health)
+            field = health
+        }
     var maxHealth: Int = 20
-    var currentForce: Int = 2
+//    var currentForce: Int = 2
+    var startingForce = 2
     var maxForce: Int = 10
     var forcePerBeat = 1
         protected set
@@ -18,7 +24,7 @@ open class Player() {
     constructor(serializable: PlayerSerializable) : this() {
         this.currentHealth = serializable.currentHealth
         this.maxHealth = serializable.maxHealth
-        this.currentForce = serializable.currentForce
+//        this.currentForce = serializable.currentForce
         this.forcePerBeat = serializable.forcePerBeat
         this.overloadsAvailable = serializable.overloadsAvailable
         this.finisherUsed = serializable.finisherUsed
@@ -35,7 +41,6 @@ open class Player() {
     }
 
     open fun overloadAvailable(name: String): Boolean {
-        if(currentForce < 2) return false
         return if(overloadsAvailable.containsKey(name) && overloadsAvailable[name] != null)
             overloadsAvailable[name]!! < 1
         else
@@ -45,25 +50,10 @@ open class Player() {
     private fun healthChanged(newHealth: Int) {
         val health = if(newHealth > maxHealth) maxHealth else newHealth
         updateForcePerBeat(health)
-        if(!finisherUsed) updateFinisherAvailable(health)
     }
 
-    private fun updateFinisherAvailable(newHealth: Int) {
-        finisherAvailable = !finisherUsed && newHealth <= currentForce
-    }
-
-    private fun finisherAvailable(): Boolean {
-        return !finisherUsed && currentForce >= currentHealth
-    }
-
-    fun getSerializable(): PlayerSerializable {
-        return PlayerSerializable(this.maxHealth, this.currentHealth, this.currentForce, this.forcePerBeat, this.overloadsAvailable, this.finisherUsed, this.finisherAvailable)
-    }
-
-    fun useOverload(name: String): Int {
+    fun useOverload(name: String) {
         overloadsAvailable[name] = overloadsAvailable[name]!! + 1
-        currentForce -= 2
-        return currentForce
     }
 
     fun resetOverloads() {
@@ -76,29 +66,16 @@ open class Player() {
         return currentHealth
     }
 
-    fun changeForce(force: Int): Int {
-        currentForce += force
-        return currentForce
-    }
-
     fun useFinisher(): Int {
-        currentForce -= currentHealth
         finisherUsed = true
-        return currentForce
+        return currentHealth
     }
 
-    fun getAvailableActions(): List<String> {
+    fun getAvailableActions(): MutableList<String> {
         val actions: MutableList<String> = mutableListOf()
-        if(finisherAvailable())
+        if(!finisherUsed)
             actions.add("FINISHER")
-        if(currentForce < 2) return actions.toList()
         overloadsAvailable.keys.forEach { key -> if(overloadAvailable(key)) actions.add(key) }
-        return actions.toList()
-    }
-
-    fun endOfBeatForce(): Int {
-        currentForce += forcePerBeat
-        if (currentForce > maxForce) currentForce = maxForce
-        return forcePerBeat
+        return actions
     }
 }

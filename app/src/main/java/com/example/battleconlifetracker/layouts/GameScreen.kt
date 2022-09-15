@@ -27,10 +27,10 @@ class GameScreen : AppCompatActivity() {
         val p2RemainingForce = findViewById<TextView>(R.id.P2RemainingForce)
 
         p1Life.text = game.getPlayer(0)?.currentHealth.toString()
-        p1Force.text = game.getPlayer(0)?.currentForce.toString()
+//        p1Force.text = game.getPlayer(0)?.currentForce.toString()
         p1RemainingForce.text = game.getRemainingForce().toString()
         p2Life.text = game.getPlayer(1)?.currentHealth.toString()
-        p2Force.text = game.getPlayer(1)?.currentForce.toString()
+//        p2Force.text = game.getPlayer(1)?.currentForce.toString()
         p2RemainingForce.text = game.getRemainingForce().toString()
 
 
@@ -129,8 +129,8 @@ class GameScreen : AppCompatActivity() {
         //End Beat
         findViewById<ImageButton>(R.id.EndBeatButton).setOnClickListener {
             game.endBeat()
-            p1Force.text = game.getPlayer(0)?.currentForce.toString()
-            p2Force.text = game.getPlayer(1)?.currentForce.toString()
+//            p1Force.text = game.getPlayer(0)?.currentForce.toString()
+//            p2Force.text = game.getPlayer(1)?.currentForce.toString()
             p1RemainingForce.text = game.getRemainingForce().toString()
             p2RemainingForce.text = game.getRemainingForce().toString()
             checkButtons()

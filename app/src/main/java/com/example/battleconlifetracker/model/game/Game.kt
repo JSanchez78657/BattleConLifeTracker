@@ -10,7 +10,7 @@ open class Game() {
     private var players: Array<Player> = arrayOf(Player(), Player())
 
     init {
-        players.forEach { player -> forceGained += player.currentForce }
+//        players.forEach { player -> forceGained += player.currentForce }
     }
 
     constructor(serializable: GameSerializable) : this() {
@@ -20,7 +20,7 @@ open class Game() {
 
     private fun convertPlayersToSerializable(): Array<PlayerSerializable> {
         var arr: Array<PlayerSerializable> = arrayOf()
-        players.forEach { player -> arr += player.getSerializable() }
+//        players.forEach { player -> arr += player.getSerializable() }
         return arr
     }
 
@@ -31,7 +31,7 @@ open class Game() {
     }
 
     open fun endBeat(): Boolean {
-        players.forEach { p -> forceGained += p.endOfBeatForce(); p.resetOverloads() }
+//        players.forEach { p -> forceGained += p.endOfBeatForce(); p.resetOverloads() }
         return forceGained >= forcePool
     }
 
@@ -52,7 +52,8 @@ open class Game() {
     }
 
     fun changeForce(id: Int, force: Int): Int {
-        return players[id].changeForce(force)
+//        return players[id].changeForce(force)
+        return 0
     }
 
     fun useFinisher(id: Int): Int {
@@ -74,7 +75,8 @@ open class Game() {
     }
 
     fun useOverload(id: Int, name: String): Int {
-        return players[id].useOverload(name)
+//        return players[id].useOverload(name)
+        return 0
     }
 
     fun resetOverloads() {

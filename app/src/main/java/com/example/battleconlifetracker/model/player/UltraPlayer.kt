@@ -4,11 +4,11 @@ class UltraPlayer : Player() {
 
     init {
         currentHealth = 40
-        currentForce = 8
+        startingForce = 8
     }
 
     override fun overloadAvailable(name: String): Boolean {
-        if(currentForce < 2) return false
+//        if(currentForce < 2) return false
         return if(overloadsAvailable.containsKey(name) && overloadsAvailable[name] != null)
             overloadsAvailable[name]!! < 3
         else
