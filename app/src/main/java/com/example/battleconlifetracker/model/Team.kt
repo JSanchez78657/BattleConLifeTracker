@@ -1,6 +1,9 @@
 package com.example.battleconlifetracker.model
 
+import com.example.battleconlifetracker.model.player.BossPlayer
 import com.example.battleconlifetracker.model.player.Player
+import com.example.battleconlifetracker.model.player.SuperPlayer
+import com.example.battleconlifetracker.model.player.UltraPlayer
 
 class Team (vararg players: Player) {
 
@@ -25,6 +28,7 @@ class Team (vararg players: Player) {
             forcePerBeat += playerList[i].forcePerBeat
             currentForce += playerList[i].startingForce
         }
+        maxForce = if(playerList.size > 1) 20 else 10
         updateForcePerBeat()
     }
 
@@ -32,6 +36,23 @@ class Team (vararg players: Player) {
         var playerForce = 0
         playerList.forEach { player -> playerForce += player.forcePerBeat }
         forcePerBeat = playerForce
+    }
+
+    fun resetGame(numPlayers: Int) {
+        forcePerBeat = 0
+        currentForce = 0
+        for(i in playerList.indices) {
+            playerList[i] = when (playerList[i]) {
+                is SuperPlayer -> SuperPlayer()
+                is UltraPlayer -> UltraPlayer()
+                is BossPlayer -> BossPlayer(numPlayers)
+                else -> Player()
+            }
+            forcePerBeat += playerList[i].forcePerBeat
+            currentForce += playerList[i].startingForce
+        }
+        maxForce = if(playerList.size > 1) 20 else 10
+        updateForcePerBeat()
     }
 
     fun getAvailableActions(): HashMap<Int, List<String>> {

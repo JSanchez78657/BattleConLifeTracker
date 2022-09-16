@@ -11,3 +11,4 @@ Collaboration icons created by Freepik - Flaticon: https://www.flaticon.com/free
 Monster icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/monster
 Muscle icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/muscle
 Freedom icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/freedom
+Sword icons created by Freepik - Flaticon: https://www.flaticon.com/free-icons/sword

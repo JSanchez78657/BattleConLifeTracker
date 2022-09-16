@@ -5,14 +5,25 @@ import com.example.battleconlifetracker.model.Team
 open class TeamGame {
 
     val teamMap = hashMapOf<Int, Team>()
-    val forcePool by lazy { calcForcePool() }
+    private var forcePool = 0
     var forceGained = 0
-    var initialized = false
+    private var initialized = false
 
-    private fun calcForcePool(): Int {
+    private fun calcForcePool() {
         var numPlayers = 0
         teamMap.forEach { (_, team) -> numPlayers += team.playerList.size }
-        return 5 + 20 * numPlayers
+        forcePool = 5 + 20 * numPlayers
+    }
+
+    fun resetGame() {
+        var playerCount = 0
+        forceGained = 0
+        teamMap.forEach{ (_, team) -> playerCount = team.playerList.size }
+        teamMap.forEach{ (_, team) ->
+            team.resetGame(playerCount)
+        }
+        calcForcePool()
+        initGame()
     }
 
     fun addTeam(teamId: Int, teamSize: Int) {

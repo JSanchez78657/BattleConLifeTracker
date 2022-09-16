@@ -23,6 +23,7 @@
     <string name="ultra_mode">Ultra Mode</string>
     <string name="super_mode">Super Mode</string>
     <string name="team_mode">Team Mode</string>
+    <string name="duel_mode">Duel Mode</string>
     <string-array name="num_players">
         <item>1</item>
         <item>2</item>
