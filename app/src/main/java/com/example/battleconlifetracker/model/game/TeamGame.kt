@@ -15,20 +15,9 @@ open class TeamGame {
         forcePool = 5 + 20 * numPlayers
     }
 
-    fun resetGame() {
-        var playerCount = 0
-        forceGained = 0
-        teamMap.forEach{ (_, team) -> playerCount = team.playerList.size }
-        teamMap.forEach{ (_, team) ->
-            team.resetGame(playerCount)
-        }
-        calcForcePool()
-        initGame()
-    }
-
-    fun addTeam(teamId: Int, teamSize: Int) {
+    fun addTeam(teamId: Int, teamSize: Int, mode: GameFlags, gameSize: Int) {
         if(initialized) return
-        teamMap[teamId] = Team(teamSize)
+        teamMap[teamId] = Team(teamSize, mode, gameSize)
     }
 
     fun initGame() {

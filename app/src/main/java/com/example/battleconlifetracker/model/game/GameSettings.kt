@@ -1,6 +1,8 @@
 package com.example.battleconlifetracker.model.game
 
-class GameSettings(val gameMode: GameFlags) {
+import java.io.Serializable
+
+class GameSettings(val gameMode: GameFlags) : Serializable {
     public var teamSizes: Pair<Int, Int>
 
     init {
@@ -17,4 +19,6 @@ class GameSettings(val gameMode: GameFlags) {
         if(gameMode == GameFlags.BOSS) teamSizes = Pair(1, playerCount)
         else GameSettings(gameMode)
     }
+
+    public fun gameSize(): Int { return teamSizes.first + teamSizes.second }
 }

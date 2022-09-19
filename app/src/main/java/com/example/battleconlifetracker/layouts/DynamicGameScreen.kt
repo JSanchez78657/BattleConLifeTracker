@@ -22,19 +22,28 @@ class DynamicGameScreen : AppCompatActivity() {
     //ViewId hashes to the tuple defining the team and player index within that team.
     private val viewsToPlayerIndex: HashMap<Int, Pair<Int, Int>> = hashMapOf()
     private val game = TeamGame()
-    private val gameSettings =
-        if(intent != null && intent.hasExtra("GameSettings"))
-            intent.extras?.get("GameSettings") as GameSettings
-        else
-            GameSettings(GameFlags.DUEL)
+    private var gameSettings = GameSettings(GameFlags.DUEL)
 
     // Receiver
     private val getResult =
         registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == GameFlags.RESET.intVal) {
-                resetGame()
-            }
+            ActivityResultContracts.StartActivityForResult()) { resultVal ->
+                var flag = GameFlags.RESUME
+                val hold = Intent(this, DynamicGameScreen::class.java)
+                val bundle = Bundle()
+                for(item in GameFlags.values()) {
+                    if (item.intVal == resultVal.resultCode) {
+                        flag = item
+                        break
+                    }
+                }
+                if(flag != GameFlags.RESUME) {
+                    if(flag != GameFlags.RESET) {
+                        bundle.putSerializable("GameSettings", GameSettings(flag))
+                    }
+                    hold.putExtras(bundle)
+                    resetGame(hold)
+                }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,15 +51,16 @@ class DynamicGameScreen : AppCompatActivity() {
         setContentView(R.layout.blank_constraint)
         val constraintLayout = findViewById<ConstraintLayout>(R.id.GameConstraint)
         constraintLayout.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        if(intent.hasExtra("GameSettings")) gameSettings = intent.getSerializableExtra("GameSettings") as GameSettings
         buildGame(constraintLayout, gameSettings.teamSizes.first, gameSettings.teamSizes.second)
         setContentView(constraintLayout)
         game.initGame()
         refreshUI()
     }
 
-    private fun resetGame() {
-        game.resetGame()
-        refreshUI()
+    private fun resetGame(newIntent: Intent) {
+        startActivity(newIntent)
+        finish()
     }
 
     private fun buildGame(parent: ConstraintLayout, teamAPlayerCount: Int, teamBPlayerCount: Int): View {
@@ -79,7 +89,7 @@ class DynamicGameScreen : AppCompatActivity() {
         val uiBlocks: MutableList<View> = mutableListOf()
         var idHold: Int
         teamFrame.id = teamId
-        game.addTeam(teamId, teamSize)
+        game.addTeam(teamId, teamSize, gameSettings.gameMode, gameSettings.gameSize())
         for(playerId in 0 until teamSize) {
             idHold = View.generateViewId()
             uiBlocks.add(playerId, layoutInflater.inflate(R.layout.health_block_horizontal, teamFrame, false))
