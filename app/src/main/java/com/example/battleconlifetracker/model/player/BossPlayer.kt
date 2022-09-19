@@ -3,7 +3,8 @@ package com.example.battleconlifetracker.model.player
 class BossPlayer(numPlayers: Int) : Player() {
 
     init {
-        currentHealth = 25 * numPlayers
+        maxHealth = 25 * numPlayers
+        currentHealth = maxHealth
         startingForce = 2
         //Jank solution to make sure bosses can't use/be shown finishers
         finisherUsed = true

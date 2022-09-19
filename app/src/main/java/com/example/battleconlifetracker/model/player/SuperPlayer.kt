@@ -3,12 +3,12 @@ package com.example.battleconlifetracker.model.player
 class SuperPlayer : Player() {
 
     init {
-        currentHealth = 30
+        maxHealth = 30
+        currentHealth = maxHealth
         startingForce = 5
     }
 
     override fun overloadAvailable(name: String): Boolean {
-//        if(currentForce < 2) return false
         return if(overloadsAvailable.containsKey(name) && overloadsAvailable[name] != null)
             overloadsAvailable[name]!! < 2
         else

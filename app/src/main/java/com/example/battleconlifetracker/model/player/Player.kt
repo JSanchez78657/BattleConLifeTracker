@@ -4,13 +4,13 @@ import kotlin.properties.Delegates
 
 open class Player {
 
-    var currentHealth: Int = 20
+    var maxHealth: Int = 20
+    var currentHealth: Int = maxHealth
         set(newHealth) {
             val health = if(newHealth > maxHealth) maxHealth else newHealth
             updateForcePerBeat(health)
             field = health
         }
-    var maxHealth: Int = 20
     var startingForce = 2
     var forcePerBeat = 1
         protected set

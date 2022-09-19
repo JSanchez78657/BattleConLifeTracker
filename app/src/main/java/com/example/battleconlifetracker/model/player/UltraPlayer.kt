@@ -3,7 +3,8 @@ package com.example.battleconlifetracker.model.player
 class UltraPlayer : Player() {
 
     init {
-        currentHealth = 40
+        maxHealth = 40
+        currentHealth = maxHealth
         startingForce = 8
     }
 
