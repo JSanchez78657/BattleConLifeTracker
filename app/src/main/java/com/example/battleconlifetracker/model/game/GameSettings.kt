@@ -11,13 +11,11 @@ class GameSettings(val gameMode: GameFlags) : Serializable {
             GameFlags.SUPER -> Pair(1, 2)
             GameFlags.ULTRA -> Pair(1, 3)
             GameFlags.TEAMS -> Pair(2, 2)
+            GameFlags.BOSS_VS_2 -> Pair(1, 2)
+            GameFlags.BOSS_VS_3 -> Pair(1, 3)
+            GameFlags.BOSS_VS_4 -> Pair(1, 4)
             else -> Pair(1,1)
         }
-    }
-
-    constructor(gameMode: GameFlags, playerCount: Int) : this(GameFlags.BOSS) {
-        if(gameMode == GameFlags.BOSS) teamSizes = Pair(1, playerCount)
-        else GameSettings(gameMode)
     }
 
     public fun gameSize(): Int { return teamSizes.first + teamSizes.second }

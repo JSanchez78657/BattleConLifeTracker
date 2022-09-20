@@ -21,7 +21,7 @@ class DynamicGameScreen : AppCompatActivity() {
 
     //ViewId hashes to the tuple defining the team and player index within that team.
     private val viewsToPlayerIndex: HashMap<Int, Pair<Int, Int>> = hashMapOf()
-    private val game = TeamGame()
+    private var game = TeamGame()
     private var gameSettings = GameSettings(GameFlags.DUEL)
 
     // Receiver
@@ -38,9 +38,7 @@ class DynamicGameScreen : AppCompatActivity() {
                     }
                 }
                 if(flag != GameFlags.RESUME) {
-                    if(flag != GameFlags.RESET) {
-                        bundle.putSerializable("GameSettings", GameSettings(flag))
-                    }
+                    bundle.putSerializable("GameSettings", if(flag == GameFlags.RESET) gameSettings else GameSettings(flag))
                     hold.putExtras(bundle)
                     resetGame(hold)
                 }

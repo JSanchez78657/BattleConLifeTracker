@@ -30,7 +30,9 @@ class Team (vararg players: Player) {
                 else when(mode) {
                     GameFlags.SUPER -> SuperPlayer()
                     GameFlags.ULTRA -> UltraPlayer()
-                    GameFlags.BOSS -> BossPlayer(gameSize)
+                    GameFlags.BOSS_VS_2 -> BossPlayer(gameSize)
+                    GameFlags.BOSS_VS_3 -> BossPlayer(gameSize)
+                    GameFlags.BOSS_VS_4 -> BossPlayer(gameSize)
                     else -> Player()
                 }
             forcePerBeat += playerList[i].forcePerBeat

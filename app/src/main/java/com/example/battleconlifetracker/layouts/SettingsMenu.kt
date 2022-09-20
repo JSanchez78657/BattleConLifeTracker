@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.battleconlifetracker.R
@@ -14,7 +15,7 @@ import com.example.battleconlifetracker.model.game.GameFlags
 
 class SettingsMenu : AppCompatActivity() {
 
-   private var bossPlayerCount = -1
+   private var bossPlayerCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +46,7 @@ class SettingsMenu : AppCompatActivity() {
             finish()
         }
         findViewById<ImageButton>(R.id.BossButton).setOnClickListener {
-            while(bossPlayerCount !in setOf(-1, 2, 3, 4))
-                getPlayerCount()
-            if(bossPlayerCount != -1) {
-                intent.putExtra("BossPlayerCount", bossPlayerCount)
-                setResult(GameFlags.BOSS.intVal)
-                finish()
-            }
+            getPlayerCount()
         }
     }
 
@@ -70,8 +65,29 @@ class SettingsMenu : AppCompatActivity() {
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
             // Here you get get input text from the Edittext
             bossPlayerCount = input.text.toString().toInt()
+            if(bossPlayerCount in setOf(2, 3, 4)) {
+                intent.putExtra("BossPlayerCount", bossPlayerCount)
+                setResult(
+                when(bossPlayerCount) {
+                    2 -> GameFlags.BOSS_VS_2.intVal
+                    3 -> GameFlags.BOSS_VS_3.intVal
+                    4 -> GameFlags.BOSS_VS_4.intVal
+                    else -> { GameFlags.DUEL.intVal }
+                })
+                finish()
+            }
+            else {
+                inputError()
+            }
         })
         builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
         builder.show()
+    }
+
+    private fun inputError() {
+        AlertDialog.Builder(this)
+            .setTitle("Error")
+            .setMessage("Value must be 2, 3, or 4")
+            .show()
     }
 }

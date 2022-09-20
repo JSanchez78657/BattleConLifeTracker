@@ -3,19 +3,16 @@ package com.example.battleconlifetracker.model.player
 class BossPlayer(numPlayers: Int) : Player() {
 
     init {
-        maxHealth = 25 * numPlayers
+        maxHealth = 25 * (numPlayers - 1)
         currentHealth = maxHealth
         startingForce = 2
         //Jank solution to make sure bosses can't use/be shown finishers
         finisherUsed = true
     }
 
+
     override fun overloadAvailable(name: String): Boolean {
-//        if(currentForce < 2) return false
-        return if(overloadsAvailable.containsKey(name) && overloadsAvailable[name] != null)
-            overloadsAvailable[name]!! < 1
-        else
-            false
+        return false
     }
 
     override fun updateForcePerBeat(newHealth: Int) {
