@@ -62,25 +62,28 @@ class SettingsMenu : AppCompatActivity() {
         input.hint = "Number of players facing the boss (2-4)"
         input.inputType = InputType.TYPE_CLASS_NUMBER
         builder.setView(input)
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        builder.setPositiveButton("OK") { _, _ ->
             // Here you get get input text from the Edittext
-            bossPlayerCount = input.text.toString().toInt()
-            if(bossPlayerCount in setOf(2, 3, 4)) {
+            bossPlayerCount = if(input.text.isBlank()) 0 else input.text.toString().toInt()
+            if (bossPlayerCount in setOf(2, 3, 4)) {
                 intent.putExtra("BossPlayerCount", bossPlayerCount)
                 setResult(
-                when(bossPlayerCount) {
-                    2 -> GameFlags.BOSS_VS_2.intVal
-                    3 -> GameFlags.BOSS_VS_3.intVal
-                    4 -> GameFlags.BOSS_VS_4.intVal
-                    else -> { GameFlags.DUEL.intVal }
-                })
+                    when (bossPlayerCount) {
+                        2 -> GameFlags.BOSS_VS_2.intVal
+                        3 -> GameFlags.BOSS_VS_3.intVal
+                        4 -> GameFlags.BOSS_VS_4.intVal
+                        else -> {
+                            GameFlags.DUEL.intVal
+                        }
+                    }
+                )
                 finish()
-            }
-            else {
+            } else {
                 inputError()
             }
-        })
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+            bossPlayerCount = 0
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
         builder.show()
     }
 
