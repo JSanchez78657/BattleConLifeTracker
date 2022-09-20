@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".layouts.SpinnerLayout" android:exported="true"/>
-        <activity android:name=".layouts.DynamicGameScreen" android:exported="true"/>
-        <activity android:name=".layouts.SettingsMenu" android:exported="true"/>
+        <activity android:name=".layouts.DynamicGameScreen" android:exported="true" android:configChanges="orientation|screenSize"/>
+        <activity android:name=".layouts.SettingsMenu" android:exported="true" android:configChanges="orientation|screenSize"/>
     </application>
 
 </manifest>

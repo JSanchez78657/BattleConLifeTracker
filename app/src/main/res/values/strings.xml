@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BattleConLifeTracker</string>
+    <string name="app_name">BattleCON Assistant</string>
     <string name="end_beat">End Beat</string>
     <string name="ante_power">Ante Power</string>
     <string name="ante_guard">Ante Stun Guard</string>
