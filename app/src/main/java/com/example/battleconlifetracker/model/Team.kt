@@ -11,6 +11,9 @@ class Team (vararg players: Player) {
     private var maxForce = 0
     private var forcePerBeat = 0
     var currentForce = 0
+        set(newForce) {
+            field = if(newForce > maxForce) maxForce else newForce
+        }
     var playerList: MutableList<Player> = mutableListOf()
 
     init {
@@ -38,7 +41,7 @@ class Team (vararg players: Player) {
             forcePerBeat += playerList[i].forcePerBeat
             currentForce += playerList[i].startingForce
         }
-        maxForce = if(playerList.size > 1) 20 else 10
+        maxForce = if(mode in setOf(GameFlags.SUPER, GameFlags.ULTRA) || playerCount > 1) 20 else 10
         updateForcePerBeat()
     }
 

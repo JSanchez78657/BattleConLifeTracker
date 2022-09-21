@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,14 +16,15 @@ import com.example.battleconlifetracker.R
 import com.example.battleconlifetracker.helpers.EasyConstraintSet
 import com.example.battleconlifetracker.model.game.GameFlags
 import com.example.battleconlifetracker.model.game.GameSettings
-import com.example.battleconlifetracker.model.game.TeamGame
+import com.example.battleconlifetracker.model.game.Game
 import com.google.android.material.textview.MaterialTextView
+import kotlin.random.Random
 
 class DynamicGameScreen : AppCompatActivity() {
 
     //ViewId hashes to the tuple defining the team and player index within that team.
     private val viewsToPlayerIndex: HashMap<Int, Pair<Int, Int>> = hashMapOf()
-    private var game = TeamGame()
+    private var game = Game()
     private var gameSettings = GameSettings(GameFlags.DUEL)
 
     // Receiver
@@ -54,6 +57,16 @@ class DynamicGameScreen : AppCompatActivity() {
         setContentView(constraintLayout)
         game.initGame()
         refreshUI()
+        pickActivePlayer()
+    }
+
+    private fun pickActivePlayer() {
+        val builder = AlertDialog.Builder(this)
+        val image = ImageView(this)
+        image.setImageResource(R.drawable.active_player_ccw)
+        if(Random(System.currentTimeMillis()).nextBoolean()) image.rotation = 180f
+        builder.setView(image)
+        builder.show()
     }
 
     private fun resetGame(newIntent: Intent) {

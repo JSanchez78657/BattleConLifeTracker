@@ -2,7 +2,7 @@ package com.example.battleconlifetracker.model.game
 
 import com.example.battleconlifetracker.model.Team
 
-open class TeamGame {
+open class Game {
 
     val teamMap = hashMapOf<Int, Team>()
     private var forcePool = 0
