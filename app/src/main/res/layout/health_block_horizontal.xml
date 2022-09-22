@@ -5,6 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/HealthBlock"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/life_point_red"
         tools:context=".layouts.DynamicGameScreen">
     <androidx.constraintlayout.widget.Guideline
             android:id="@+id/FinisherLine"
@@ -20,7 +22,8 @@
             app:layout_constraintGuide_percent=".895"/>
     <ImageButton
             android:id="@+id/FinisherButton"
-            android:background="@color/finisher_red"
+            android:background="@drawable/border"
+            android:backgroundTint="@color/finisher_red"
             android:src="@drawable/explosion_ccw"
             android:scaleType="fitCenter"
             android:contentDescription="@string/finisher"
@@ -45,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
     <ImageButton
             android:id="@+id/GainLife"
-            android:background="@color/life_point_red"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/gain_life"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -55,7 +58,7 @@
             app:layout_constraintEnd_toStartOf="@id/LoseLife"/>
     <ImageButton
             android:id="@+id/LoseLife"
-            android:background="@color/life_point_red"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/gain_life"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -66,7 +69,8 @@
     <ImageButton
             android:id="@+id/PowerAnteButton"
             android:contentDescription="@string/ante_power"
-            android:background="@color/ante_overload_green"
+            android:background="@drawable/border"
+            android:backgroundTint="@color/ante_overload_green"
             android:src="@drawable/sword_ccw"
             android:scaleType="fitCenter"
             android:layout_width="0dp"
@@ -79,7 +83,8 @@
     <ImageButton
             android:id="@+id/GuardAnteButton"
             android:contentDescription="@string/ante_guard"
-            android:background="@color/ante_overload_green"
+            android:background="@drawable/border"
+            android:backgroundTint="@color/ante_overload_green"
             android:src="@drawable/shield_ccw"
             android:scaleType="fitCenter"
             android:layout_width="0dp"
@@ -92,7 +97,8 @@
     <ImageButton
             android:id="@+id/PrioAnteButton"
             android:contentDescription="@string/ante_prio"
-            android:background="@color/ante_overload_green"
+            android:background="@drawable/border"
+            android:backgroundTint="@color/ante_overload_green"
             android:src="@drawable/lightning_ccw"
             android:scaleType="fitCenter"
             android:layout_width="0dp"

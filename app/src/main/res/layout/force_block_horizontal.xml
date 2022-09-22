@@ -5,6 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/ForceBlock"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/force_point_green"
         tools:context=".layouts.DynamicGameScreen">
     <androidx.constraintlayout.widget.Guideline
             android:id="@+id/AnteLine"
@@ -26,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
     <ImageButton
             android:id="@+id/GainForce"
-            android:background="@color/force_point_green"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/gain_force"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -36,7 +38,7 @@
             app:layout_constraintEnd_toStartOf="@id/LoseForce"/>
     <ImageButton
             android:id="@+id/LoseForce"
-            android:background="@color/force_point_green"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/gain_force"
             android:layout_width="0dp"
             android:layout_height="0dp"

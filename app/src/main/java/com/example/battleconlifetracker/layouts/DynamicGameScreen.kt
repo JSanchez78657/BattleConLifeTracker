@@ -63,7 +63,7 @@ class DynamicGameScreen : AppCompatActivity() {
     private fun pickActivePlayer() {
         val builder = AlertDialog.Builder(this)
         val image = ImageView(this)
-        image.setImageResource(R.drawable.active_player_ccw)
+        image.setImageResource(R.drawable.active_player)
         if(Random(System.currentTimeMillis()).nextBoolean()) image.rotation = 180f
         builder.setView(image)
         builder.show()
@@ -77,8 +77,8 @@ class DynamicGameScreen : AppCompatActivity() {
     private fun buildGame(parent: ConstraintLayout, teamAPlayerCount: Int, teamBPlayerCount: Int): View {
         val teamA = buildTeam(parent, teamAPlayerCount)
         val teamB = buildTeam(parent, teamBPlayerCount)
-        val beatZone = layoutInflater.inflate(R.layout.end_of_beat_block_vertical, parent, false)
-        teamA.rotation = 180f
+        val beatZone = layoutInflater.inflate(R.layout.end_of_beat_block_horizontal, parent, false)
+        teamB.rotation = 180f
         beatZone.findViewById<ImageButton>(R.id.EndBeatButton).setOnClickListener {
             game.endBeat()
             refreshUI()
@@ -90,7 +90,7 @@ class DynamicGameScreen : AppCompatActivity() {
         parent.addView(teamA)
         parent.addView(beatZone)
         parent.addView(teamB)
-        EasyConstraintSet.joinConstraintViewsLeftToRight(parent, listOf(teamA,beatZone, teamB))
+        EasyConstraintSet.joinConstraintViewsBottomToTop(parent, listOf(teamA,beatZone, teamB))
         return parent
     }
 
@@ -103,19 +103,19 @@ class DynamicGameScreen : AppCompatActivity() {
         game.addTeam(teamId, teamSize, gameSettings.gameMode, gameSettings.gameSize())
         for(playerId in 0 until teamSize) {
             idHold = View.generateViewId()
-            uiBlocks.add(playerId, layoutInflater.inflate(R.layout.health_block_horizontal, teamFrame, false))
+            uiBlocks.add(playerId, layoutInflater.inflate(R.layout.health_block_vertical, teamFrame, false))
             uiBlocks[playerId].id = idHold
             viewsToPlayerIndex[idHold] = Pair(teamId, playerId)
             setHealthBlockListeners(uiBlocks[playerId])
             teamFrame.addView(uiBlocks[playerId])
         }
         idHold = View.generateViewId()
-        uiBlocks.add(uiBlocks.size, layoutInflater.inflate(R.layout.force_block_horizontal, teamFrame, false))
+        uiBlocks.add(uiBlocks.size, layoutInflater.inflate(R.layout.force_block_vertical, teamFrame, false))
         uiBlocks.last().id = idHold
         viewsToPlayerIndex[idHold] = Pair(teamId, -1)
         setForceBlockListeners(uiBlocks.last())
         teamFrame.addView(uiBlocks.last())
-        EasyConstraintSet.joinConstraintViewsBottomToTop(teamFrame, uiBlocks.toList())
+        EasyConstraintSet.joinConstraintViewsLeftToRight(teamFrame, uiBlocks.toList())
         return teamFrame
     }
 

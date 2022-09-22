@@ -4,5 +4,6 @@
         android:layout_height="0dp"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/GameConstraint"
+        android:background="@color/text_black"
         tools:context=".layouts.DynamicGameScreen">
 </androidx.constraintlayout.widget.ConstraintLayout>
